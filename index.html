@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monkey Valentine 🐒💙</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#fff;
+  font-family: Arial, sans-serif;
+}
+
+.container{
+  text-align:center;
+  padding:24px;
+  max-width: 980px;
+  width: 100%;
+}
+
+#title{
+  font-size:32px;
+  margin-bottom:14px;
+}
+
+#gif{
+  width:520px;
+  max-width:92vw;
+  border-radius:16px;
+  margin-bottom:20px;
+}
+
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+}
+
+button{
+  border:none;
+  border-radius:14px;
+  padding:16px 34px;
+  font-size:20px;
+  cursor:pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#yesBtn{ background:#31c75a; color:#fff; }
+#noBtn{ background:#ff3b30; color:#fff; }
+
+#finalScreen{
+  display:none;
+  text-align:center;
+}
+
+#finalGif{
+  width:720px;
+  max-width:92vw;
+  border-radius:18px;
+  margin-bottom:18px;
+}
+
+#finalText{
+  font-size:30px;
+  margin:0;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PANTALLA PRINCIPAL -->
+<div class="container" id="mainScreen">
+  <div id="title">¿Quieres ser mi monkeynovia valentines? 🐒💙</div>
+
+  <img id="gif" referrerpolicy="no-referrer"
+  src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGsyams5bnV1MDZtbGhrMDltbm1tMjdxcTZjaWR4enEzamxjMHdhcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t5CvIjDqEJCGA/giphy.gif">
+
+  <div class="buttons">
+    <button id="yesBtn">Sí 💙</button>
+    <button id="noBtn">No 💔</button>
+  </div>
+</div>
+
+<!-- PANTALLA FINAL -->
+<div class="container" id="finalScreen">
+  <img id="finalGif" referrerpolicy="no-referrer"
+  src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExenU4cWYycXJrcjN6ZWY1NTFqMG9zOHpudzd3Ym80dXFjdDNwZHR0ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NoGhgVB9ybIJ2/giphy.gif">
+
+  <div id="finalText">
+    Sabía que me dirías que siiiii, te amo mucho! 💙<br><br>
+    Nos vemos el 12 de febrero para celebrar nuestro primer
+    <strong>monkey valentineeeee 🐒</strong>
+  </div>
+</div>
+
+<script>
+const noGifs = [
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZHY4Nml2ODZlamthdWNiazVvOHA5emY5dTRnMjczbjc4ODMxeW5oaiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/G5dg3lNSpb1FWG1P4r/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExemZudW42d3psYnJqd2h4aDc1aG81NTc4ZmxuNGJsdng0d3NnY285NyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/lprIQG8Pl3T4gktKOZ/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHdzNHQxaTNvaWFkNHM4N3E2M2xtMTAyc2RxbGNiZmV2dnFrMm9tdSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/bEQxnEI03wUOQsMJnC/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3M3lrNThrd2xiZnhta2gyb25zZnV3ZGwyOWlmaDJkYmdpam4ybWlpcCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/KpACNEh8jXK2Q/giphy.gif",
+  "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGx1c2hyZTA0dW4xcWQ4Z2xldmt5bzFvdzh4OTg5MXFiNWJrZm0wbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/DJg8nZ3Ok4wYRO8P4K/giphy.gif"
+];
+
+const noTexts = [
+  "Pofavo piénselo bien",
+  "En velda dejara un mono abandonado?",
+  "Abrimeee que me voyyyy",
+  "Deme una oportunidadddd",
+  "No me queda remedio que...."
+];
+
+let noClicks = 0;
+let noScale = 1;
+let yesScale = 1;
+
+const gifEl = document.getElementById("gif");
+const titleEl = document.getElementById("title");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+
+function bust(url){
+  return url + "?v=" + Date.now();
+}
+
+noBtn.onclick = () => {
+  if(noClicks >= 5) return;
+
+  gifEl.src = bust(noGifs[noClicks]);
+  titleEl.textContent = noTexts[noClicks];
+
+  noScale *= 0.72;
+  yesScale *= 1.12;
+
+  noBtn.style.transform = `scale(${noScale})`;
+  yesBtn.style.transform = `scale(${yesScale})`;
+
+  noClicks++;
+
+  if(noClicks === 5){
+    noBtn.style.opacity = "0";
+    noBtn.style.pointerEvents = "none";
+    setTimeout(() => noBtn.style.display = "none", 200);
+  }
+};
+
+yesBtn.onclick = () => {
+  document.getElementById("mainScreen").style.display = "none";
+  document.getElementById("finalScreen").style.display = "block";
+};
+</script>
+
+</body>
+</html>
+
+
